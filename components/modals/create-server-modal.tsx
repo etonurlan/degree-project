@@ -29,10 +29,10 @@ import { useModal } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
   name: z.string().min(1, {
-    message: "Server name is required."
+    message: "Название сервера обязательно."
   }),
   imageUrl: z.string().min(1, {
-    message: "Server image is required."
+    message: "Изображение сервера обязательно."
   })
 });
 
@@ -74,10 +74,10 @@ export const CreateServerModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Customize your server
+            Настройте свой сервер
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Give your server a personality with a name and an image. You can always change it later.
+            Придайте своему серверу индивидуальность с помощью имени и изображения. Вы всегда можете изменить это позже.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -109,13 +109,13 @@ export const CreateServerModal = () => {
                     <FormLabel
                       className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70"
                     >
-                      Server name
+                      Имя сервера
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
                         className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter server name"
+                        placeholder="Введите имя сервера"
                         {...field}
                       />
                     </FormControl>
@@ -126,7 +126,7 @@ export const CreateServerModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Create
+                Создать
               </Button>
             </DialogFooter>
           </form>

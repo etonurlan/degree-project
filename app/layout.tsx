@@ -9,8 +9,8 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 const font = Open_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Degree Project",
-  description: "My degree project",
+  title: "ВКР Проект",
+  description: "Мой учебный проект",
 };
 
 export default function RootLayout({

@@ -13,7 +13,7 @@ export const NavigationAction = () => {
       <ActionTooltip
         side="right"
         align="center"
-        label="Add a server"
+        label="Создать сервер"
       >
         <button
           onClick={() => onOpen("createServer")}

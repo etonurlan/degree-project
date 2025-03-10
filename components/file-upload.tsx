@@ -65,12 +65,21 @@ export const FileUpload = ({
 
   return (
     <UploadDropzone
+      
       endpoint={endpoint}
       onClientUploadComplete={(res) => {
         onChange(res?.[0].url);
       }}
       onUploadError={(error: Error) => {
         console.log(error);
+      }}
+      content={{
+        allowedContent() {
+          return `Изображение до 4 Мб`;
+        },
+        label() {
+          return `Выберите файл или перетащите его сюда`
+        }
       }}
     />
   )
