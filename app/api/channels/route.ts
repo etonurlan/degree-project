@@ -20,8 +20,8 @@ export async function POST(req: Request) {
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
-    if (name === "general") {
-      return new NextResponse("Name cannot be 'general'", { status: 400 });
+    if (name === "главный") {
+      return new NextResponse("Name cannot be 'главный'", { status: 400 });
     }
 
     const server = await db.server.update({
