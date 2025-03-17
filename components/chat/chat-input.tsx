@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { EmojiPicker } from "@/components/emoji-picker";
 import { useModal } from "@/hooks/use-modal-store";
 
 interface ChatInputProps {
@@ -77,6 +78,13 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     }`}
                     {...field}
                   />
+                  <div className="absolute top-7 right-8">
+                    <EmojiPicker
+                      onChange={(emoji: string) =>
+                        field.onChange(`${field.value} ${emoji}`)
+                      }
+                    />
+                  </div>
                 </div>
               </FormControl>
             </FormItem>
