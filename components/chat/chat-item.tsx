@@ -221,7 +221,7 @@ export const ChatItem = ({
                 </Button>
               </form>
               <span className="text-[10px] mt-1 text-zinc-400">
-                Нажмите escape, чтобы выйти. Enter, чтобы сохранить 
+                Нажмите escape, чтобы выйти. Enter, чтобы сохранить
               </span>
             </Form>
           )}
