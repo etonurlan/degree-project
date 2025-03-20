@@ -7,7 +7,7 @@ import { db } from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const profile = await currentProfile();
-    const { name, type } = await req.json();
+    const { name, type, isAnonymous } = await req.json();
     const { searchParams } = new URL(req.url);
 
     const serverId = searchParams.get("serverId");
@@ -42,6 +42,7 @@ export async function POST(req: Request) {
             profileId: profile.id,
             name,
             type,
+            isAnonymous,
           },
         },
       },

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { useParams, useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import {
@@ -45,6 +46,7 @@ const formSchema = z.object({
       message: "Название канала не может быть 'главный'",
     }),
   type: z.nativeEnum(ChannelType),
+  isAnonymous: z.boolean().default(false),
 });
 
 export const CreateChannelModal = () => {
@@ -60,6 +62,7 @@ export const CreateChannelModal = () => {
     defaultValues: {
       name: "",
       type: channelType || ChannelType.TEXT,
+      isAnonymous: false,
     },
   });
 
@@ -70,6 +73,12 @@ export const CreateChannelModal = () => {
       form.setValue("type", ChannelType.TEXT);
     }
   }, [channelType, form]);
+
+  useEffect(() => {
+    if (form.watch("type") !== ChannelType.AUDIO) {
+      form.setValue("isAnonymous", false);
+    }
+  }, [form.watch("type")]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -159,6 +168,27 @@ export const CreateChannelModal = () => {
                   </FormItem>
                 )}
               />
+              {form.watch("type") === ChannelType.AUDIO && (
+                <FormField
+                  control={form.control}
+                  name="isAnonymous"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center justify-between space-x-2">
+                      <FormLabel className="text-sm font-medium text-zinc-500">
+                        Анонимный голосовой канал
+                      </FormLabel>
+                      <FormControl className="!m-0">
+                        <Switch
+                          className="bg-white"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          disabled={isLoading}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>

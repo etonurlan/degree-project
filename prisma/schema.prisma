@@ -87,6 +87,7 @@ model Channel {
   id String @id @default(uuid())
   name String
   type ChannelType @default(TEXT)
+  isAnonymous Boolean @default(false)
 
   profileId String
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)

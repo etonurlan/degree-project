@@ -16,6 +16,8 @@ export async function GET(req: NextRequest) {
     );
   }
 
+  const finalUsername = username || "Anonymous";
+
   const apiKey = process.env.LIVEKIT_API_KEY;
   const apiSecret = process.env.LIVEKIT_API_SECRET;
   const wsUrl = process.env.NEXT_PUBLIC_LIVEKIT_URL;
@@ -27,7 +29,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const at = new AccessToken(apiKey, apiSecret, { identity: username });
+  const at = new AccessToken(apiKey, apiSecret, { identity: finalUsername });
 
   at.addGrant({ room, roomJoin: true, canPublish: true, canSubscribe: true });
   const jwt = await at.toJwt();

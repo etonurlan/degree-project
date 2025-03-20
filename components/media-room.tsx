@@ -5,21 +5,31 @@ import { LiveKitRoom, VideoConference } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
+import { AnonymousRoom } from "@/components/anonymous-room";
 
 interface MediaRoomProps {
   chatId: string;
   video: boolean;
   audio: boolean;
+  isAnonymous: boolean;
 }
 
-export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
+export const MediaRoom = ({
+  chatId,
+  video,
+  audio,
+  isAnonymous,
+}: MediaRoomProps) => {
   const { user } = useUser();
   const [token, setToken] = useState("");
+  const anonymousName = `Anonymous-${Math.floor(Math.random() * 10000)}`;
 
   useEffect(() => {
-    if (!user?.firstName || !user?.lastName) return;
+    const name = isAnonymous
+      ? anonymousName
+      : `${user?.firstName ?? "User"} ${user?.lastName ?? ""}`;
 
-    const name = `${user.firstName} ${user.lastName}`;
+    if (!name || !chatId) return;
 
     (async () => {
       try {
@@ -43,7 +53,12 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
     );
   }
 
-  return (
+  return isAnonymous ? (
+    <AnonymousRoom
+      token={token}
+      serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL!}
+    />
+  ) : (
     <LiveKitRoom
       data-lk-theme="default"
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
