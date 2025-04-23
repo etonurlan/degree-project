@@ -76,11 +76,24 @@ export const AnonymousRoom = ({ token, serverUrl }: AnonymousRoomProps) => {
     await mic.open();
     micInstanceRef.current = mic;
 
-    const pitchShift = new Tone.PitchShift(12);
+    const pitchShift = new Tone.PitchShift(Math.random() * 4 + 10);
+    const distortion = new Tone.Distortion(0.6); // Искажение тембра
+    const bitCrusher = new Tone.BitCrusher(4); // Эффект цифрового "шума"
+    const reverb = new Tone.Reverb({ decay: 2.5, wet: 0.4 }); // Пространственный эффект
+    const autoWah = new Tone.AutoWah({
+      baseFrequency: 400,
+      octaves: 4,
+      sensitivity: -30,
+    });
+
     const dest = Tone.getContext().createMediaStreamDestination();
 
     mic.connect(pitchShift);
     pitchShift.connect(dest);
+    distortion.connect(bitCrusher);
+    bitCrusher.connect(autoWah);
+    autoWah.connect(reverb);
+    reverb.connect(dest);
 
     const [processedTrack] = dest.stream.getAudioTracks();
     audioTrackRef.current = processedTrack;
