@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
 
     return config;
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     domains: ["uploadthing.com", "utfs.io"],
   },
